@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manajemen User</title>
+  <link rel="stylesheet" href="admin-style.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar-container">
+      <h1>Admin Panel - Nom Nom</h1>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="user-management.html" class="active">User</a></li>
+          <li><a href="product-management.html">Produk</a></li>
+          <li><a href="../index.html">Keluar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h2>Manajemen Pengguna</h2>
+
+    <form id="userForm" class="form-inline">
+      <input type="text" id="nameInput" placeholder="Nama" required />
+      <input type="email" id="emailInput" placeholder="Email" required />
+      <input type="password" id="passwordInput" placeholder="Password" required />
+      <select id="roleInput" required>
+        <option value="" disabled selected>Pilih Role</option>
+        <option value="User">User</option>
+        <option value="Admin">Admin</option>
+      </select>
+      <button type="submit">Tambah</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody">
+        <!-- Data pengguna ditampilkan di sini -->
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    const form = document.getElementById("userForm");
+    const nameInput = document.getElementById("nameInput");
+    const emailInput = document.getElementById("emailInput");
+    const passwordInput = document.getElementById("passwordInput");
+    const roleInput = document.getElementById("roleInput");
+    const tableBody = document.getElementById("userTableBody");
+
+    // Data user awal
+    let users = [
+      { name: "Farid Irsyadillah", email: "farid@nomnom.com", password: "admin123", role: "Admin" },
+      { name: "Nina Kartika", email: "nina@nomnom.com", password: "userpass", role: "User" },
+      { name: "Dedi Saputra", email: "dedi@nomnom.com", password: "dedi123", role: "User" }
+    ];
+
+    let editingIndex = null;
+
+    function renderUsers() {
+      tableBody.innerHTML = "";
+      users.forEach((user, index) => {
+        const row = document.createElement("tr");
+
+        if (editingIndex === index) {
+          row.innerHTML = `
+            <td><input type="text" value="${user.name}" id="editName-${index}" /></td>
+            <td><input type="email" value="${user.email}" id="editEmail-${index}" /></td>
+            <td>
+              <select id="editRole-${index}">
+                <option value="User" ${user.role === "User" ? "selected" : ""}>User</option>
+                <option value="Admin" ${user.role === "Admin" ? "selected" : ""}>Admin</option>
+              </select>
+            </td>
+            <td class="table-actions">
+              <button onclick="saveUser(${index})">Simpan</button>
+              <button onclick="cancelEdit()">Batal</button>
+            </td>
+          `;
+        } else {
+          row.innerHTML = `
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>${user.role}</td>
+            <td class="table-actions">
+              <button onclick="editUser(${index})">Edit</button>
+              <button onclick="deleteUser(${index})">Hapus</button>
+            </td>
+          `;
+        }
+
+        tableBody.appendChild(row);
+      });
+    }
+
+    function addUser(e) {
+      e.preventDefault();
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      const role = roleInput.value;
+
+      if (name && email && password && role) {
+        users.push({ name, email, password, role });
+        form.reset();
+        renderUsers();
+      }
+    }
+
+    function deleteUser(index) {
+      if (confirm("Yakin ingin menghapus pengguna ini?")) {
+        users.splice(index, 1);
+        renderUsers();
+      }
+    }
+
+    function editUser(index) {
+      editingIndex = index;
+      renderUsers();
+    }
+
+    function cancelEdit() {
+      editingIndex = null;
+      renderUsers();
+    }
+
+    function saveUser(index) {
+      const name = document.getElementById(`editName-${index}`).value.trim();
+      const email = document.getElementById(`editEmail-${index}`).value.trim();
+      const role = document.getElementById(`editRole-${index}`).value;
+
+      if (name && email && role) {
+        users[index].name = name;
+        users[index].email = email;
+        users[index].role = role;
+        editingIndex = null;
+        renderUsers();
+      } else {
+        alert("Data tidak boleh kosong!");
+      }
+    }
+
+    form.addEventListener("submit", addUser);
+    renderUsers();
+  </script>
+</body>
+</html>

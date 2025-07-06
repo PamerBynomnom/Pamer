@@ -1,0 +1,359 @@
+/* admin-style.css v2 – Modernized */
+
+/* === VARIABEL DESAIN === */
+:root {
+  --primary: #FFA500;
+  --primary-hover: #e69500;
+  --bg: #f5f7fb;
+  --white: #fff;
+  --text: #2D3748;
+  --text-light: #718096;
+  --gray: #e2e8f0;
+  --border: #CBD5E0;
+  --radius: 14px;
+  --shadow: 0 6px 24px rgba(0,0,0,0.06);
+}
+
+/* === RESET DASAR === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* === HEADER & NAVIGATION === */
+header {
+  background: var(--white);
+  box-shadow: var(--shadow);
+  padding: 18px 32px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+}
+
+nav ul li a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: var(--text);
+  border-bottom: 2px solid var(--primary);
+}
+
+/* === MAIN CONTENT === */
+main {
+  max-width: 1100px;
+  margin: 120px auto 40px auto;
+  padding: 0 24px;
+}
+
+main h2 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* === FORM & INPUT === */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+  background: var(--white);
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--gray);
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(255,165,0,0.2);
+}
+
+/* === TOMBOL === */
+button {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 12px 24px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+/* === LOGIN PAGE === */
+.login-page-body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg);
+}
+
+.login-box {
+  background: var(--white);
+  padding: 48px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 1.6rem;
+  color: var(--text);
+}
+
+/* === TABEL === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+th, td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background-color: #f7fafc;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* === LIST (PRODUK) === */
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 20px;
+}
+
+ul li {
+  background: var(--white);
+  padding: 16px 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  transition: box-shadow 0.3s ease;
+}
+
+ul li:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  main {
+    padding: 0 16px;
+  }
+
+  .login-box {
+    margin: 0 16px;
+  }
+}
+
+/* ===== KOMPONEN KARTU PRODUK (UNTUK product-management.html) ===== */
+
+.product-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+  gap: 20px;
+  transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.product-info img {
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.product-text h3 {
+  margin-bottom: 4px;
+  font-size: 1.1rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.product-text p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+
+.product-text strong {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.product-card button {
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+/* ===== USER MANAGEMENT WITH ROLE & PASSWORD ===== */
+
+.form-inline {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.form-inline input,
+.form-inline select {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--gray);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.form-inline input:focus,
+.form-inline select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.2);
+}
+
+.form-inline button {
+  padding: 12px 24px;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.form-inline button:hover {
+  background-color: var(--primary-hover);
+}
+
+td input[type="text"],
+td input[type="email"],
+td select {
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  border: 1px solid var(--gray);
+  border-radius: 6px;
+  width: 100%;
+  background-color: #fff;
+}
+
+td input:focus,
+td select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.2);
+  outline: none;
+}
+
+.table-actions button {
+  margin-right: 8px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.table-actions button:hover {
+  background-color: var(--primary-hover);
+}

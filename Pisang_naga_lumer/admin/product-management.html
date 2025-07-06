@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manajemen Produk</title>
+  <link rel="stylesheet" href="admin-style.css" />
+</head>
+<body>
+  <header>
+    <div class="navbar-container">
+      <h1>Admin Panel - Nom Nom</h1>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="user-management.html">User</a></li>
+          <li><a href="product-management.html" class="active">Produk</a></li>
+          <li><a href="../index.html">Keluar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h2>Manajemen Produk</h2>
+
+    <form id="productForm" class="form-inline">
+      <input type="text" id="productName" placeholder="Nama Produk" required />
+      <input type="number" id="productPrice" placeholder="Harga (Rp)" required />
+      <textarea id="productDesc" placeholder="Deskripsi Produk" rows="2" required></textarea>
+      <input type="file" id="productImage" accept="image/*" required />
+      <button type="submit">Tambah Produk</button>
+    </form>
+
+    <div id="productList"></div>
+  </main>
+
+  <script>
+    const form = document.getElementById('productForm');
+    const list = document.getElementById('productList');
+    const imageInput = document.getElementById('productImage');
+
+    // 🟠 Produk awal disertakan dengan gambar base64
+    let products = [
+      {
+        name: "Pamer Coklat",
+        price: "5000",
+        desc: "Berisi cokelat asli yang lumer di mulut",
+        image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABWklEQVR4nO3aMQ0CQQxF0SXs//8rZy5tkEF0C5OdUx9l7Ly7MwAAAAAAAAAAAAAAADYt+N/SdGe2phRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYhRaYtfa0CAAAAAAAAAAAAAAAAsNUHHgAA4ezIKAAAAABJRU5ErkJggg=="
+      },
+      {
+        name: "Pamer Keju",
+        price: "5000",
+        desc: "Berisi keju lumer yang digoreng dengan minyak",
+        image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABaElEQVR4nO3aMQ0CMQxF0XnU/P+3r7CQzDbR0jJUjTuRdf3uAAAAAAAAAAAAAAAAAGBU+76N0pttamFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiFFpiF1jGv6gAAAAAAAAAAAAAAAAAgOcFHgAA+5GdiAAAAABJRU5ErkJggg=="
+      }
+    ];
+
+    let editIndex = null;
+
+    function renderProducts() {
+      list.innerHTML = "";
+      products.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+
+        if (editIndex === index) {
+          card.innerHTML = `
+            <div class="product-info">
+              <img src="${item.image}" alt="${item.name}" />
+              <div class="product-text">
+                <input type="text" value="${item.name}" id="editName-${index}" />
+                <textarea id="editDesc-${index}">${item.desc}</textarea>
+                <input type="number" value="${item.price}" id="editPrice-${index}" />
+              </div>
+            </div>
+            <div>
+              <input type="file" id="editImage-${index}" accept="image/*" />
+              <button onclick="saveEdit(${index})">Simpan</button>
+              <button onclick="cancelEdit()">Batal</button>
+            </div>
+          `;
+        } else {
+          card.innerHTML = `
+            <div class="product-info">
+              <img src="${item.image}" alt="${item.name}" />
+              <div class="product-text">
+                <h3>${item.name}</h3>
+                <p>${item.desc}</p>
+                <strong>Rp ${parseInt(item.price).toLocaleString("id-ID")}</strong>
+              </div>
+            </div>
+            <div>
+              <button onclick="editProduct(${index})">Edit</button>
+              <button onclick="deleteProduct(${index})">Hapus</button>
+            </div>
+          `;
+        }
+
+        list.appendChild(card);
+      });
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("productName").value.trim();
+      const price = document.getElementById("productPrice").value.trim();
+      const desc = document.getElementById("productDesc").value.trim();
+      const file = imageInput.files[0];
+
+      if (!file || !name || !price || !desc) {
+        alert("Lengkapi semua data termasuk gambar.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const imageDataUrl = reader.result;
+        products.push({ name, price, desc, image: imageDataUrl });
+        form.reset();
+        renderProducts();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function deleteProduct(index) {
+      if (confirm("Hapus produk ini?")) {
+        products.splice(index, 1);
+        renderProducts();
+      }
+    }
+
+    function editProduct(index) {
+      editIndex = index;
+      renderProducts();
+    }
+
+    function cancelEdit() {
+      editIndex = null;
+      renderProducts();
+    }
+
+    function saveEdit(index) {
+      const name = document.getElementById(`editName-${index}`).value.trim();
+      const desc = document.getElementById(`editDesc-${index}`).value.trim();
+      const price = document.getElementById(`editPrice-${index}`).value.trim();
+      const fileInput = document.getElementById(`editImage-${index}`);
+      const file = fileInput.files[0];
+
+      const saveData = (newImage) => {
+        products[index] = {
+          name,
+          desc,
+          price,
+          image: newImage || products[index].image
+        };
+        editIndex = null;
+        renderProducts();
+      };
+
+      if (!name || !desc || !price) {
+        alert("Data tidak boleh kosong!");
+        return;
+      }
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          saveData(reader.result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        saveData();
+      }
+    }
+
+    renderProducts();
+  </script>
+</body>
+</html>
