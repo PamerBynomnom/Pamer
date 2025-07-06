@@ -89,6 +89,14 @@
     background-color: #d73555;
 }
 
+.popup-social .facebook {
+    background-color: #1877F2;
+}
+
+.popup-social .facebook:hover {
+    background-color: #145dbf;
+}
+
 
 @keyframes fadeInUp {
     from {
@@ -2213,6 +2221,204 @@ footer {
 /* Menggunakan .order-button yang sudah ada, tidak perlu .save-button */
 .profile-form-new .order-button {
     border: none; /* Tombol ini tidak perlu border */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 100px;
+}
+.menu-category-title {
+  text-align: left;
+  margin: 30px 0;
+}
+
+.menu-category-title h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: left;
+  margin: 0;
+}
+
+.pesan-wa-highlight {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pesan-wa-highlight a {
+    background-color: #25D366;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pesan-wa-highlight a:hover {
+    background-color: #1ebe5d;
+    transform: translateY(-2px);
+}
+
+.pesan-wa-highlight i {
+    font-size: 1.3rem;
+}
+
+.back-arrow {
+    font-size: 24px;
+    color: #333;
+    text-decoration: none;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transition: color 0.3s ease;
+}
+
+.back-arrow:hover {
+    color: #ffa500; /* atau warna brand kamu */
+}
+
+.site-footer {
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 60px 20px 40px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.footer-contact {
+  text-align: left;
+}
+.footer-contact,
+.footer-form {
+  flex: 1 1 300px;
+  min-width: 280px;
+}
+
+.footer-contact h3,
+.footer-form h3 {
+  margin-bottom: 15px;
+}
+
+.footer-contact p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.footer-contact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-contact ul li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-contact a {
+  color: #ffc107;
+  text-decoration: none;
+}
+
+.footer-contact a:hover {
+  text-decoration: underline;
+}
+
+.footer-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-form input,
+.footer-form textarea {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.footer-form textarea {
+  resize: vertical;
+}
+
+.footer-form button {
+  align-self: flex-start;
+  background-color: #ffa500;
+  color: #fff;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.footer-form button:hover {
+  background-color: #e69500;
+}
+
+.footer-map {
+  margin-top: 50px;
+}
+
+.footer-map h3 {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.map-embed iframe {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-grid {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer-map h3 {
+    text-align: left;
+  }
+
+  .footer-form button {
+    align-self: stretch;
+    text-align: center;
+  }
 }
 
 
