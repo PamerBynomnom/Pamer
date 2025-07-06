@@ -10,6 +10,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+<!-- Chat Toggle Button -->
+<!-- Tombol Toggle Chat -->
+<div class="chat-toggle" id="chatToggle">
+    <i class="fas fa-comment-alt" id="chatIcon"></i>
+    <span id="chatLabel">Contact Us</span>
+</div>
+
+<!-- Popup Ikon Sosial Media -->
+<div class="popup-social" id="popupSocial">
+    <a href="https://wa.me/6287814966531?text=Halo%20Nom%20Nom!%20Saya%20ingin%20pesan%20Pisang%20Naga%20Lumer" target="_blank" class="social-icon">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://www.instagram.com/pamerinajaa?igsh=MWxzcTY5OHN6amJzZQ==" target="_blank" class="social-icon instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+</div>
+
+
+
 <body>
     <header>
         <div class="navbar-container">
@@ -170,5 +189,35 @@
     <footer>
         <p>&copy; 2025 Nom Nom. All Rights Reserved.</p>
     </footer>
+   <script>
+        const chatToggle = document.getElementById('chatToggle');
+        const popupSocial = document.getElementById('popupSocial');
+        const chatIcon = document.getElementById('chatIcon');
+        const chatLabel = document.getElementById('chatLabel');
+
+        let isOpen = false;
+
+        chatToggle.addEventListener('click', () => {
+            isOpen = !isOpen;
+
+            if (isOpen) {
+                popupSocial.style.display = 'flex'; // Vertical susun
+                chatIcon.classList.remove('fa-comment-alt');
+                chatIcon.classList.add('fa-times');
+                chatLabel.textContent = 'Tutup';
+            } else {
+                popupSocial.style.display = 'none';
+                chatIcon.classList.remove('fa-times');
+                chatIcon.classList.add('fa-comment-alt');
+                chatLabel.textContent = 'Contact Us';
+            }
+        });
+
+        // ✅ Pastikan popup disembunyi saat pertama load
+        window.addEventListener("DOMContentLoaded", function () {
+            popupSocial.style.display = 'none';
+        });
+    </script>
+
 </body>
 </html>
