@@ -11,6 +11,9 @@
   --radius: 14px;
   --shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
 }
+body, html {
+  overflow-x: hidden;
+}
 
 body {
   font-family: 'Poppins', sans-serif;
@@ -28,7 +31,6 @@ body {
   top: 0;
   z-index: 999;
   padding: 16px 0;
-  margin-top: 16px;
   width: 100%;
 }
 
@@ -38,7 +40,10 @@ body {
   margin: auto;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  overflow-x:hidden ;
   align-items: flex-start;
+  padding: 0 16px;
 
 }
 
@@ -46,6 +51,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .admin-header h1 {
@@ -155,11 +161,6 @@ body {
 }
 
 /* Kontainer header */
-.header-flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 /* Hamburger hanya muncul di mobile */
 /* === Tambahan untuk memperbaiki hamburger di mobile === */
@@ -327,6 +328,54 @@ th {
     width: 50px;
     height: auto;
   }
+}
+.table-responsive-custom {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+}
+
+.table-custom {
+  width: 100%;
+  min-width: 800px; /* ⬅️ Penting agar bisa scroll */
+  border-collapse: collapse;
+}
+
+.table-custom th,
+.table-custom td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table-custom th {
+  background: #f7fafc;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.table-actions button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--primary);
+  color: #fff;
+  cursor: pointer;
+}
+
+.table-actions button:hover {
+  background-color: var(--primary-hover);
 }
 
 .alert.success {
